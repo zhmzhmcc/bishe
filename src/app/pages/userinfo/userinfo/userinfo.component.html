@@ -1,0 +1,50 @@
+<nz-layout>
+    <nz-header
+    style="background: #fff; padding:0;height:75px;max-width:100%;color: rgba(26, 19, 19, 0.65);font-size: 1.5em;overflow: hidden;">
+    <!-- 添加头像和退出 -->
+    <div nz-row nzType="flex">
+
+      <div title="titleLeft" nzspan="12" nz-col style="margin-left:5%;height:60px;">
+        <p style="font-size: 28px;">2020考试信息审核系统<span>——考生信息审核表</span></p>
+      </div>
+      <div title="titleRight" nzspan="12" nz-col style="margin-left: 22%;font-size: 18px;">
+        <p appMove><span style="color:  rgb(73, 134, 224);">{{username}} 管理员 </span> 您好，欢迎登录年审核系统 <span>&nbsp;&nbsp;【退出登录】</span></p>
+        
+      </div>
+    </div>
+  </nz-header>
+  <nz-layout>
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" style="height:auto">
+      <div class="logo"></div>
+      <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+        <li nz-submenu nzTitle="用户列表" nzIcon="user" nzOpen>
+          <ul>
+            <li nz-menu-item routerLink="/userinfo/userinfos" nzSelected>用户列表</li>
+            
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="用户添加" nzIcon="team">
+          <ul>
+            <li nz-menu-item routerLink="/userinfo/useradd">用户添加</li>
+          </ul>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="file"></i>
+          <span>File</span>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      
+      <nz-content>
+        <nz-breadcrumb>
+
+        </nz-breadcrumb>
+        <div class="inner-content">
+            <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+      <nz-footer>Ant Design ©2019-2020 </nz-footer>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>
