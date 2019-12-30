@@ -4,11 +4,13 @@
     <!-- 添加头像和退出 -->
     <div nz-row nzType="flex">
 
-      <div title="titleLeft" nzspan="12" nz-col style="margin-left:5%;height:60px;">
+      <div title="" nzspan="12" nz-col style="margin-left:5%;height:60px;">
         <p style="font-size: 28px;">2020考试信息审核系统<span>——考生信息审核表</span></p>
       </div>
-      <div title="titleRight" nzspan="12" nz-col style="margin-left: 22%;font-size: 18px;">
-        <p appMove><span style="color:  rgb(73, 134, 224);">{{username}} 管理员 </span> 您好，欢迎登录年审核系统 <span>&nbsp;&nbsp;【退出登录】</span></p>
+      <div title="" nzspan="12" nz-col style="
+      position: fixed;
+      right: 10px;font-size: 18px;">
+        <p appMove><span  style="color:  rgb(73, 134, 224);">{{username}} 管理员 </span > 您好，欢迎登录年审核系统 <span (click)="loginout()" style="cursor: pointer;" title="退出"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;【退出登录】</span></p>
         
       </div>
     </div>
@@ -44,7 +46,7 @@
             <router-outlet></router-outlet>
         </div>
       </nz-content>
-      <nz-footer>Ant Design ©2019-2020 </nz-footer>
+      <!-- <nz-footer>Ant Design ©2019-2020 </nz-footer> -->
     </nz-layout>
   </nz-layout>
 </nz-layout>

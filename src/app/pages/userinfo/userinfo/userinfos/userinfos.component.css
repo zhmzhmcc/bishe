@@ -147,6 +147,18 @@ input::-webkit-input-placeholder{
     right: 50px;
     top: 115px;
 }
-::ng-deep .tbcontent th{
+::ng-deep .ant-table-tbody > tr > td,::ng-deep .ant-table-thead > tr > th {
     text-align: center;
+    padding: 16px 8px;
 }
+.ant-table-tbody > tr > td span{
+    -moz-user-select:none;/*火狐*/
+    -webkit-user-select:none;/*webkit浏览器*/
+    -ms-user-select:none;/*IE10*/
+    -khtml-user-select:none;/*早期浏览器*/
+      user-select:none;
+}
+::ng-deep .ant-layout{
+    height: 100%;
+}
+

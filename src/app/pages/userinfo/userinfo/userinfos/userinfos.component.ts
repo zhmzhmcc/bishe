@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TimeHolder } from 'ng-zorro-antd/time-picker/time-holder';
+import { NzModalService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-userinfos',
@@ -14,20 +15,41 @@ export class UserinfosComponent implements OnInit {
   basedataAry:any;
   flag: any;
   listOfData = [];
-
+  // 学院
+  collegeTextList: any = [
+    { 'code': "0", "value": "信息科学与工程学院" },
+    { 'code': "1", "value": "演艺学院" },
+  ];
+  // 年级
+  gradename: any = [
+    { "value": '2016级', 'code': '0' },
+    { "value": '2017级', 'code': '1' },
+    { "value": '2018级', 'code': '2' },
+    { "value": '2019级', 'code': '3' }
+  ];
+  // 专业
+  applyMajorList: any = [
+    { "value": '信管专业', 'code': '0' },
+    { "value": '医信', 'code': '1' },
+    { "value": '信工', 'code': '2' }
+  ];
+  searchId: any;
+  manflag: boolean;
   constructor(
     private fb:FormBuilder,
-    private http:HttpClient
+    private http:HttpClient,
+    private Modalservice:NzModalService
     ) { }
 
   ngOnInit() {
     for (let i = 0; i < 100; i++) {
       this.listOfData.push({
-        name: `Edward King ${i}`,
+        name: `Edward King ${i} Edward King ${i} Edward King ${i}`,
         age: 32,
-        address: `London`
+        address: `LondonLondonLondonLondonLondon`
       });
     }
+  
     this.contentForm = this.fb.group({
       collegename: [null, [Validators.required]],
       grade: [null, [Validators.required]],
@@ -39,9 +61,8 @@ export class UserinfosComponent implements OnInit {
       console.log(res)
       const userdatas=res             
       if (userdatas && Array.isArray(userdatas) && userdatas.length > 0){
-          this.basedataAry=this.verifyState(userdatas)
+          this.listOfData=this.verifyState(userdatas)
       }
-      console.log(this.basedataAry)
       this.flag=res['flag'];     
 
     })
@@ -63,5 +84,36 @@ export class UserinfosComponent implements OnInit {
   }
   //选择审核
   mapOfCheckedId(){}
+  //查询数据
+ //查询数据
+ searchForm(){
+  const contentForm = this.contentForm
+  const contentFormValue=contentForm.value
+  const searchnamevalue=contentFormValue.searchname;
+  const searchNum=contentFormValue.searchNum;
+  const collegename=contentFormValue.collegename;
+  const grade=contentFormValue.grade;
+  const project=contentFormValue.speciality;
+  const searchData=[];
+  this.listOfData.map((item)=>{
+    if(collegename == item.xueyuan){
+      console.log(item)
+      searchData.push(item)
+     this.listOfData=searchData
+     return}
+    // }else
+
+
+    // if(searchnamevalue == item.name || searchNum == item.shopTel || searchnamevalue == item.name&&searchNum == item.shopTel){   
+    //  searchData.push(item)
+    //  this.listOfData=searchData
+    //  return
+    // }else if(searchnamevalue != item.name || searchNum != item.shopTel ){
+    //   this.listOfData=[]
+    // }
+  })
+  
+  
+}
 
 }

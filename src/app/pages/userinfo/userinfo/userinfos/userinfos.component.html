@@ -57,62 +57,19 @@
 
             </div>
         </div>
-        <!-- <nz-table nzShowSizeChanger nzBordered [nzFrontPagination]="false" [nzData]="basedataAry" [nzTotal]="total"
-            [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" [nzShowSizeChanger]="true"
-            (nzPageIndexChange)="searchData()" (nzPageSizeChange)="searchData(true)"
-            [nzScroll]="{ x: '1340px' }">
-            <thead>
-                <tr class="tbcontent">
-                    <th nzWidth="40px">序号</th>
-                    <th nzWidth="40px" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
-                        [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
-                    <th nzWidth="180px">操作</th>
-                    <th nzWidth="100px">审核状态</th>
-                    <th nzWidth="100px">姓名</th>
-                    <th nzWidth="100px">学号</th>
-                    <th nzWidth="150px">学院</th>
-                    <th nzWidth="200px">年级</th>
-                    <th nzWidth="100px">专业</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let data of basedataAry;let i=index" class="tablecontent">
-                    <td>{{i+1}}</td>
-                    <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" ></td>
-                    <!-- <td nzShowCheckbox [(ngModel)]="arylists.checked"></td> 
-                    <td style=" word-break: break-all">
-                        <span class="operate check" (click)="checkinfo(i)">查看</span>
-                        <span class="operate pass checkpass" (click)="passinfo(i)" [ngClass]="{'hide': data.flag}"
-                            id="checkpass">审核通过</span>
-                        <br>
-
-                        <span class="operate revise" (click)="reviseinfo(i)">修改</span>
-                        <span class="operate nopass" (click)="nopassinfo(i)"
-                            [ngClass]="{'hide': data.noflag}">审核不通过</span>
-                    </td>
-                    <td [ngClass]="{'showstyle': data.noflag,'passstyle':data.passflag}">{{data.state}}</td>
-                    <td style="word-break: break-all">{{ data.name}}</td>
-                    <td>{{ data.shopTel}}</td>
-                    <td>{{data.idcardnum}}</td>
-                    <td>{{ data.basename }}</td>
-                    <td>{{ data.trainmajor }}</td>
-
-                </tr>
-
-            </tbody>
-        </nz-table> -->
-        <nz-table #fixedTable [nzData]="listOfData" [nzScroll]="{ x: '1150px', y: '319px' }" [nzBordered]="true">
+        <nz-table #fixedTable [nzData]="listOfData" [nzScroll]="{ x: '1050px',y:'380px'}"  
+        [nzBordered]="true" >
             <thead>
               <tr>
-                <th nzWidth="60px" nzLeft="0px">序号</th>
-                <th nzWidth="60px" nzLeft="60px">选择</th>
-                <th nzWidth="100px">操作</th>
+                <th nzWidth="50px" nzLeft="0px">序号</th>
+                <th nzWidth="50px" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
+                [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"  nzLeft="50px"></th>
+                <th nzWidth="150px">操作</th>
                 <th nzWidth="100px">姓名</th>
-                <th nzWidth="100px">Column 3</th>
-                <th nzWidth="100px">Column 4</th>
-                <th nzWidth="100px">Column 5</th>
-                <th nzWidth="100px">Column 6</th>
+                <th nzWidth="100px">学号</th>
+                <th nzWidth="100px">学院</th>
+                <th nzWidth="100px">年级</th>
+                <th nzWidth="100px">专业</th>
                 <th nzWidth="100px">Column 7</th>
                 <th nzWidth="100px">Column 8</th>
                 <th nzWidth="100px" nzRight="0px">审核状态</th>
@@ -120,17 +77,23 @@
             </thead>
             <tbody>
               <tr *ngFor="let data of fixedTable.data;let i=index">
-                <td nzLeft="0px">{{ i+1 }}</td>
-                <td nzLeft="60px">{{ data.age }}</td>
-                <td>{{ data.address }}</td>
-                <td>{{ data.address }}</td>
-                <td>{{ data.address }}</td>
-                <td>{{ data.address }}</td>
-                <td>{{ data.address }}</td>
-                <td>{{ data.address }}</td>
-                <td>{{ data.address }}</td>
-                <td>{{ data.address }}</td>
-                <td nzRight="0px">
+                <td nzBreakWord nzLeft="0px">{{i+1}}</td>
+                <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" (nzCheckedChange)="selectinfo(i)"></td>
+                <td nzBreakWord> <span class="operate check" (click)="checkinfo(i)">查看</span>
+                    <span class="operate pass checkpass" (click)="passinfo(i)" [ngClass]="{'hide': data.flag}"
+                        id="checkpass">审核通过</span>
+                    <br>
+                    <span class="operate revise" (click)="reviseinfo(i)">修改</span>
+                    <span class="operate nopass" (click)="nopassinfo(i)"
+                        [ngClass]="{'hide': data.noflag}">审核不通过</span></td>
+                <td nzBreakWord>{{ data.name }}</td>
+                <td nzBreakWord>{{ data.shopTel }}</td>
+                <td nzBreakWord>{{ data.xueyuan }}</td>
+                <td nzBreakWord>{{ data.grade }}</td>
+                <td nzBreakWord>{{ data.project }}</td>
+                <td nzBreakWord>{{ data.address }}</td>
+                <td nzBreakWord>{{ data.address }}</td>
+                <td nzBreakWord nzRight="0px">
                   <a>action</a>
                 </td>
               </tr>
