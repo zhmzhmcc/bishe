@@ -55,7 +55,7 @@ input::-webkit-input-placeholder{
     top:100px;
     left:350px;
     z-index: 999;
-    border-radius: 4px;
+    border-radius: 6px;
 
 }
 .checkinfo-content{
@@ -85,15 +85,16 @@ input::-webkit-input-placeholder{
 .checkinfo-header{
     position: relative;
     height:40px;
-    border-bottom:1px solid #ccc;
     text-align: center;
     font-size: 1.3em;
     line-height: 40px;
+
 }
 .checkinfo-close{
     position: absolute;
     top:0;
     left:760px;
+    cursor: pointer;
 }
 .hide{
     display: none;
@@ -161,4 +162,9 @@ input::-webkit-input-placeholder{
 ::ng-deep .ant-layout{
     height: 100%;
 }
-
+.showInfo{
+    display: none;
+}
+::ng-deep .ant-input-disabled{
+    color: #565656;
+}
