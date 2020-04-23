@@ -16,12 +16,11 @@
   </nz-header>
   <nz-layout>
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" style="height:auto">
-      <div class="logo"></div>
+      <div class="logo" nzIcon="user" ></div>
       <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
         <li nz-submenu nzTitle="用户列表" nzIcon="user" nzOpen>
           <ul>
-            <li nz-menu-item routerLink="/userinfo/userinfos" nzSelected>用户列表</li>
-            
+            <li nz-menu-item routerLink="/userinfo/userinfos" nzSelected>用户列表</li>            
           </ul>
         </li>
         <li nz-submenu nzTitle="用户添加" nzIcon="team">
@@ -29,14 +28,16 @@
             <li nz-menu-item routerLink="/userinfo/useradd">用户添加</li>
           </ul>
         </li>
-        <li nz-menu-item>
-          <i nz-icon nzType="file"></i>
-          <span>File</span>
+        <li nz-submenu nzTitle="数据统计" nzIcon="bar-chart">
+          <ul>
+            <li nz-menu-item routerLink="/userinfo/statistic">数据统计</li>
+          </ul>
         </li>
+        
       </ul>
     </nz-sider>
-    <nz-layout>
-      
+    <nz-layout   nz-row nzSpan="24">
+ 
       <nz-content>
         <nz-breadcrumb>
 

@@ -3,19 +3,10 @@ import { CommonModule } from '@angular/common';
 import { UseraddComponent } from './useradd/useradd.component';
 import { Routes, RouterModule } from '@angular/router';
 import { UserinfosComponent } from './userinfos/userinfos.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 
 const routes: Routes = [
-
-  {
-    path: 'userinfos',
-    component: UserinfosComponent
-  }, {
-    path: 'useradd',
-    component: UseraddComponent
-
-  }
-
 
 ];
 

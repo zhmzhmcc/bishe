@@ -145,6 +145,9 @@ export class LoginComponent implements OnInit {
   LoginRegister(){
     this.flag = false;
   }
+  RegisterLogin(){
+    this.flag = true
+  }
   //选择城市改变学校
   cityChange(e){
      this.schoolTextList = this.schoolTextListdata[e]

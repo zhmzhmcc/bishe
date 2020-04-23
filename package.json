@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 192.168.8.150 --port 4202",
+    "start": "ng serve --host 192.168.8.150 --port 4204",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
+    "@antv/g2": "^3.5.14",
     "ng-zorro-antd": "^8.5.2",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
@@ -44,5 +45,18 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.",
+  "main": "karma.conf.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhmzhmcc/bishe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhmzhmcc/bishe/issues"
+  },
+  "homepage": "https://github.com/zhmzhmcc/bishe#readme"
 }

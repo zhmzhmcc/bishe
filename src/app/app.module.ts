@@ -12,6 +12,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserinfoComponent } from './pages/userinfo/userinfo/userinfo.component';
 import { UserinfosComponent } from './pages/userinfo/userinfo/userinfos/userinfos.component';
 import { UseraddComponent } from './pages/userinfo/userinfo/useradd/useradd.component';
+import { StatisticsComponent } from './pages/userinfo/userinfo/statistics/statistics.component';
+import { IconsProviderModule } from './icons-provider.module';
+import {zh_CN} from "ng-zorro-antd";
+import zh from '@angular/common/locales/zh';
+registerLocaleData(zh);
 registerLocaleData(en);
 @NgModule({
   declarations: [
@@ -20,6 +25,7 @@ registerLocaleData(en);
     UserinfoComponent,
     UserinfosComponent,
     UseraddComponent,
+    StatisticsComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,10 +34,10 @@ registerLocaleData(en);
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
     
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

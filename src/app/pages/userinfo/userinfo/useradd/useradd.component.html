@@ -1,1 +1,148 @@
-<p>useradd works!</p>
+<div>
+    <div class="br">
+        <!-- 步骤条显示 -->
+        <nz-steps nzType="navigation" [nzCurrent]="init_index" >
+            <nz-step nzTitle="新增用户信息" [nzStatus]="init_index == 0 ? 'process' : init_index > 0  ? 'finish' :'process'">
+            </nz-step>
+            <nz-step nzTitle="确认信息" [nzStatus]="init_index == 1 ? 'process' : init_index > 1  ? 'finish' :'wait'">
+            </nz-step>
+            <nz-step nzTitle="完成" [nzStatus]="init_index == 2 ? 'process' : init_index > 2 ? 'finish' :'wait'">
+            </nz-step>
+        </nz-steps>
+        <nz-divider></nz-divider>
+        <!-- 步骤显示区域 -->
+        <div class="steps-content">
+            <!-- 新增人员信息 -->
+            <div class="" *ngIf="init_index == 0">
+                <div class="add-content">
+                    <form nz-form (ngSubmit)="modifyForm()" [formGroup]="modifyForm">
+                        <nz-collapse>
+                            <nz-collapse-panel nzHeader="基本信息" nzActive="true">
+                                <nz-form-item class="page-form-item">
+                                    <nz-form-label [nzSpan]="6" nzRequired nzFor="userName">姓名</nz-form-label>
+                                    <nz-form-control [nzSpan]="17" nzErrorTip="">
+                                        <input nz-input type="text" placeholder="" formControlName="username"
+                                            [(ngModel)]="username" [disabled]="false" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item class="page-form-item">
+                                    <nz-form-label [nzSpan]="6" nzRequired nzFor="userSex">性别</nz-form-label>
+                                    <nz-form-control [nzSpan]="17" nzErrorTip="">
+                                        <nz-select [(ngModel)]="userSex" [disabled]="false"
+                                            nzPlaceHolder="请选择性别" formControlName="userSex">
+                                            <!-- <nz-option *ngFor="let option of userSexList" [nzValue]="option.code"
+                                                [nzLabel]="option.text" ></nz-option> -->
+                                            <nz-option nzValue="female" nzLabel="女"></nz-option>
+                                            <nz-option nzValue="male" nzLabel="男"></nz-option>
+
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item class="page-form-item">
+                                    <nz-form-label [nzSpan]="6" nzRequired nzFor="userNation">学号</nz-form-label>
+                                    <nz-form-control [nzSpan]="17" nzErrorTip="">
+                                        <input nz-input type="text" [disabled]="false"
+                                            formControlName="searchNum" [(ngModel)]="searchNum" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item class="page-form-item">
+                                    <nz-form-label [nzSpan]="6" nzRequired nzFor="userNation">学院</nz-form-label>
+                                    <nz-form-control [nzSpan]="17" nzErrorTip="">
+                                        <input nz-input type="text" [disabled]="false"
+                                            formControlName="collegename" [(ngModel)]="collegename" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item class="page-form-item">
+                                    <nz-form-label [nzSpan]="6" nzRequired nzFor="userNation">年级</nz-form-label>
+                                    <nz-form-control [nzSpan]="17" nzErrorTip="">
+                                        <input nz-input type="text" [disabled]="false"
+                                            formControlName="grade" [(ngModel)]="grade" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item class="page-form-item">
+                                    <nz-form-label [nzSpan]="6" nzRequired nzFor="userNation">学历</nz-form-label>
+                                    <nz-form-control [nzSpan]="17" nzErrorTip="">
+                                        <input nz-input type="text" [disabled]="false"
+                                            formControlName="education" [(ngModel)]="edu" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </nz-collapse-panel>
+                        </nz-collapse>
+
+                    </form>
+                </div>
+
+            </div>
+            <!-- 确认人员信息 -->
+            <div class="" *ngIf="init_index == 1">
+                <div class="add-content">
+                    <form nz-form (ngSubmit)="modifyForm()" [formGroup]="modifyForm">
+                        <nz-collapse>
+                            <nz-collapse-panel nzHeader="基本信息" nzActive="true">
+                                <nz-form-item class="page-form-item">
+                                    <nz-form-label [nzSpan]="6" nzRequired nzFor="userName">姓名</nz-form-label>
+                                    <nz-form-control [nzSpan]="17" nzErrorTip="">
+                                        <input nz-input type="text" placeholder="" formControlName="username"
+                                            [(ngModel)]="username" [disabled]="true" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item class="page-form-item">
+                                    <nz-form-label [nzSpan]="6" nzRequired nzFor="userSex">性别</nz-form-label>
+                                    <nz-form-control [nzSpan]="17" nzErrorTip="">
+                                        <nz-select [(ngModel)]="userSex" [disabled]="true"
+                                            nzPlaceHolder="请选择性别" formControlName="userSex">
+                                            <!-- <nz-option *ngFor="let option of userSexList" [nzValue]="option.code"
+                                                [nzLabel]="option.text" ></nz-option> -->
+                                            <nz-option nzValue="female" nzLabel="女"></nz-option>
+                                            <nz-option nzValue="male" nzLabel="男"></nz-option>
+
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item class="page-form-item">
+                                    <nz-form-label [nzSpan]="6" nzRequired nzFor="userNation">学号</nz-form-label>
+                                    <nz-form-control [nzSpan]="17" nzErrorTip="">
+                                        <input nz-input type="text" [disabled]="true"
+                                            formControlName="searchNum" [(ngModel)]="searchNum" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item class="page-form-item">
+                                    <nz-form-label [nzSpan]="6" nzRequired nzFor="userNation">学院</nz-form-label>
+                                    <nz-form-control [nzSpan]="17" nzErrorTip="">
+                                        <input nz-input type="text" [disabled]="true"
+                                            formControlName="collegename" [(ngModel)]="collegename" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item class="page-form-item">
+                                    <nz-form-label [nzSpan]="6" nzRequired nzFor="userNation">年级</nz-form-label>
+                                    <nz-form-control [nzSpan]="17" nzErrorTip="">
+                                        <input nz-input type="text" [disabled]="true"
+                                            formControlName="grade" [(ngModel)]="grade" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item class="page-form-item">
+                                    <nz-form-label [nzSpan]="6" nzRequired nzFor="userNation">学历</nz-form-label>
+                                    <nz-form-control [nzSpan]="17" nzErrorTip="">
+                                        <input nz-input type="text" [disabled]="true"
+                                            formControlName="education" [(ngModel)]="edu" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </nz-collapse-panel>
+                        </nz-collapse>
+
+                    </form>
+                </div>
+            </div>
+            <!-- 完成 -->
+            <div *ngIf="init_index == 2" class="steps-finish">
+                <i nz-icon [nzType]="'check-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#52c41a'" style="font-size: 32px;"></i>
+                 创建完成
+        </div>
+        <!-- 点击下一步操作 -->
+        <div class="steps-arrow">
+            <button [ngClass]="{'none': isShow}" nz-button nzType="primary" class="wp10" style="margin-right: 50px;" (click)="new_prevent_btn()">上一步</button>
+            <button nz-button nzType="primary" class="wp10" (click)="new_next_btn()">{{btn_value}}</button>
+        </div>
+
+    </div>
+</div>

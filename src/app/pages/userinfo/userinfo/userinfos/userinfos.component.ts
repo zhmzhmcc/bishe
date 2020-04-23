@@ -81,13 +81,10 @@ export class UserinfosComponent implements OnInit {
       collegename:[],
       grade:[],
       project:[],
-     
-
-
 
     })
     
-    this.http.get('http://localhost:3000/user').subscribe((res) => {
+    this.http.get('http://192.168.8.150:3000/user').subscribe((res) => {
       console.log(res)
       const userdatas = res
       if (userdatas && Array.isArray(userdatas) && userdatas.length > 0) {
@@ -116,25 +113,39 @@ export class UserinfosComponent implements OnInit {
     const grade = contentFormValue.grade;
     const project = contentFormValue.speciality;
     const searchData = [];
-    if(searchnamevalue == '' && searchNum == '' && collegename == '' && grade == '' && project == ''){
-         this.listOfData = this.listOfData
-    }else{
+    console.log(searchnamevalue)
+    if(searchnamevalue != '' || searchNum != ''){
       this.listOfData.map((item) => {
-        if (collegename == item.xueyuan) {
-          console.log(item)
-          searchData.push(item)
-          this.listOfData = searchData
-          return
-        }
-  
-      })
-
+            if (searchnamevalue == item.name || searchNum == item.number) {
+              console.log(item)
+              searchData.push(item)
+              this.listOfData = searchData
+              return
+            }
+          })
     }
+    // if(searchnamevalue == '' && searchNum == '' && collegename == '' && grade == '' && project == ''){
+    //      this.listOfData = this.listOfData
+    //      console.log(this.listOfData)
+
+    // }else{
+    //   this.listOfData.map((item) => {
+    //     if (collegename == item.xueyuan) {
+    //       console.log(item)
+    //       searchData.push(item)
+    //       this.listOfData = searchData
+    //       return
+    //     }
+  
+    //   })
+
+    // }
     
   }
 
   //单条审核通过
   passinfo(i) {
+    console.log(i)
     this.listOfData[i].state = '1';
     this.singleverifyState(this.listOfData[i]);
     this.passbasedataAry = this.listOfData;

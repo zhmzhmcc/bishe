@@ -35,6 +35,7 @@
             </nz-input-group>
           </nz-form-control>
           <p class="login-register" (click)="LoginRegister()">没有账号？去注册</p>
+
         </nz-form-item>
   
         <nz-form-item>
@@ -89,13 +90,17 @@
             <input nz-input formControlName="registerpassword" type="password" [(ngModel)]="registerpsd">
           </nz-form-control>
         </nz-form-item>
-        <nz-form-item  class="form-item"> 
+        <nz-form-item  class="form-item" style="height: 50px;"> 
           <nz-form-label [nzSpan]="7"  style="margin-left:-25px;">确认密码</nz-form-label>
           <nz-form-control nzErrorTip="密码不能为空" [nzSm]="14" [nzXs]="24">
             <input nz-input formControlName="registerrepassword" type="password" [(ngModel)]="registerrespsd">
+
           </nz-form-control>
+          <p class="login-register" (click)="RegisterLogin()">已有账号，去登陆</p>
+
         </nz-form-item>
         <nz-form-item  class="form-item"> 
+
           <button nz-button nzType="primary" class="login-register-btn">注册</button>
         </nz-form-item>
       </form>
