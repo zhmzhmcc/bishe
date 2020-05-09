@@ -4,14 +4,15 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TimeHolder } from 'ng-zorro-antd/time-picker/time-holder';
 import { NzModalService } from 'ng-zorro-antd';
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { saveAs } from "file-saver";
 
 @Component({
-  selector: 'app-userinfos',
-  templateUrl: './userinfos.component.html',
-  styleUrls: ['./userinfos.component.css']
+  selector: 'app-exportdata',
+  templateUrl: './exportdata.component.html',
+  styleUrls: ['./exportdata.component.css']
 })
-export class UserinfosComponent implements OnInit {
+export class ExportdataComponent implements OnInit {
+
   contentForm: FormGroup;
   basedataAry: any;
   flag: any;
@@ -30,10 +31,16 @@ export class UserinfosComponent implements OnInit {
   ];
   // 专业
   applyMajorList: any = [
-    { "value": '信息管理与信息系统', 'code': '0' },
-    { "value": '信工', 'code': '1' },
-    { "value": '医学信息工程', 'code': '2' }
+    { "value": '信管专业', 'code': '0' },
+    { "value": '医信', 'code': '1' },
+    { "value": '信工', 'code': '2' }
   ];
+  status: any = [
+    { "value": '未审核', 'code': '0' },
+    { "value": '审核通过', 'code': '1' },
+    { "value": '审核不通过', 'code': '2' }
+  ];
+
   searchId: any;
   manflag: boolean;
   passbasedataAry: any[];
@@ -59,22 +66,21 @@ export class UserinfosComponent implements OnInit {
   grade: any;
   type: any;
   isVisible : boolean = false;
-  userdatas: Object;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private Modalservice: NzModalService,
-    private message:NzMessageService
+    private Modalservice: NzModalService
   ) { }
 
   ngOnInit() {
+
     this.contentForm = this.fb.group({
-      collegename: ['', [Validators.required]],
-      grade: ['', [Validators.required]],
-      speciality: ['', [Validators.required]],
-      searchname: ['', null],
-      searchNum: ['', [Validators.required]]
+      collegename: [null, [Validators.required]],
+      grade: [null, [Validators.required]],
+      speciality: [null, [Validators.required]],
+      searchname: [null, [Validators.required]],
+      searchNum: [null, [Validators.required]]
     });
     this.modifyForm = this. fb.group({
       username:[null, [Validators.required]],
@@ -83,13 +89,14 @@ export class UserinfosComponent implements OnInit {
       collegename:[],
       grade:[],
       project:[],
+
     })
     
     this.http.get('http://192.168.8.150:3000/user').subscribe((res) => {
       console.log(res)
-      this.userdatas = res
-      if (this.userdatas && Array.isArray(this.userdatas) && this.userdatas.length > 0) {
-        this.listOfData = this.verifyState(this.userdatas)
+      const userdatas = res
+      if (userdatas && Array.isArray(userdatas) && userdatas.length > 0) {
+        this.listOfData = this.verifyState(userdatas)
       }
       this.flag = res['flag'];
     })
@@ -106,7 +113,6 @@ export class UserinfosComponent implements OnInit {
 
   searchForm()
    {
-    this.listOfData = this.verifyState(this.userdatas)
     const contentForm = this.contentForm
     const contentFormValue = contentForm.value
     const searchnamevalue = contentFormValue.searchname;
@@ -115,53 +121,16 @@ export class UserinfosComponent implements OnInit {
     const grade = contentFormValue.grade;
     const project = contentFormValue.speciality;
     const searchData = [];
-    console.log(contentForm.value)
-    // if(searchnamevalue != '' || searchNum != '' || collegename !='' || grade != '' || project != ''){
-    //   this.listOfData.map((item) => {
-    //         if (searchnamevalue.trim() == item.name  || searchNum.trim() == item.studentId || collegename.trim() == item.xueyuan || grade.trim() == item.grade || project.trim() == item.project ) {
-    //           console.log(item)
-    //           searchData.push(item)
-    //           this.listOfData = searchData
-    //         }else if ( collegename.trim() == item.xueyuan && grade.trim() == item.grade && project.trim() == item.project ) {
-    //           console.log(item)
-    //           searchData.push(item)
-    //           this.listOfData = searchData
-    //         }
-
-    //       })
-    // }else
-    if(collegename !='' && grade != '' && project != ''){
+    console.log(searchnamevalue)
+    if(searchnamevalue != '' || searchNum != ''){
       this.listOfData.map((item) => {
-        if (item.xueyuan == collegename.trim()  && item.grade == grade.trim()  &&  item.project == project.trim()   ) {
-          searchData.push(item)
-          console.log(searchData)
-          this.listOfData = searchData
-          console.log(this.listOfData)
-          return
-        }
-
-      })
-      if(searchData == []){
-        this.listOfData = searchData
-      }
-    }else if(collegename =='' && grade == '' && project == '' && searchnamevalue != '' || searchNum != ''){
-      this.listOfData.map((item) => {
-        if (searchnamevalue.trim() == item.name || searchNum.trim() == item.studentId) {
-          searchData.push(item)
-          console.log(searchData)
-          this.listOfData = searchData
-          return
-        }else if(searchnamevalue.trim() == item.name && searchNum.trim() == item.studentId){
-          searchData.push(item)
-          console.log(searchData)
-          this.listOfData = searchData
-          console.log(this.listOfData)
-        }
-
-      })
-      if(searchData == []){
-        this.listOfData = searchData
-      }
+            if (searchnamevalue == item.name || searchNum == item.number) {
+              console.log(item)
+              searchData.push(item)
+              this.listOfData = searchData
+              return
+            }
+          })
     }
     // if(searchnamevalue == '' && searchNum == '' && collegename == '' && grade == '' && project == ''){
     //      this.listOfData = this.listOfData
@@ -182,102 +151,9 @@ export class UserinfosComponent implements OnInit {
     
   }
 
-  //单条审核通过
-  passinfo(id) {
-    console.log(id)
-    this.listOfData.forEach(item=>{
-      if(item.id == id){
-        item.state = '1';
-        this.singleverifyState(item);
 
-      }
-    })
-    
-    this.passbasedataAry = this.listOfData;
-  }
 
-  //单条审核不通过
-  nopassinfo(id) {
-    this.listOfData.forEach(item=>{
-      if(item.id == id){
-        item.state = '2';
-        this.singleverifyState(item);
-
-      }
-    })
-    
-    this.passbasedataAry = this.listOfData;
-  }
-
-  //所选单挑数据
-  selectinfo(i) {
-    this.listOfData.forEach((item, index) => {
-      if (i === index) {
-        console.log(this.mapOfCheckedId[item.id])
-        if (this.mapOfCheckedId[item.id] == true) {
-          this.multistr.push(item);
-          console.log(this.multistr)
-        } else {
-          this.multistr.splice(this.multistr.indexOf(item.id), 1);
-        }
-      }
-    })
-  }
-
-  //所选审核通过
-  selectpass() {
-    if (this.multistr == '') {
-      this.Modalservice.info({
-        nzTitle: '提示',
-        nzContent: '请至少选择1条数据'
-      })
-    } else {
-      const length=this.multistr.length;
-      this.Modalservice.success({
-        nzTitle:'提示',
-        nzContent:length+'条数据审核通过'
-      })
-      this.multistr.map((item) => {
-        item.state = '1'
-        this.singleverifyState(item)
-        this.mapOfCheckedId[item.id] = false
-      })
-      this.multistr = []
-      
-    }
-  }
-
-  //所选审核不通过
-  selectnopass() {
-    if (this.multistr == '') {
-      this.Modalservice.info({
-        nzTitle: '提示',
-        nzContent: '请至少选择1条数据'
-      })
-    } else {
-      const length=this.multistr.length;
-      this.Modalservice.success({
-        nzTitle:'提示',
-        nzContent:length+'条数据审核不通过'
-      })
-      this.multistr.map((item) => {
-        item.state = '2'
-        this.singleverifyState(item)
-        this.mapOfCheckedId[item.id] = false
-      })
-      this.multistr = []
-    }
-  }
-
-  //全部审核通过
-  checkAll(value: boolean): void {
-    this.listOfData.forEach((item) => {
-      if (this.mapOfCheckedId[item.id] = value) {
-        this.multistr.push(item);
-      }
-    }
-    );
-  }
+ 
   selectallpass() {
     if (this.multistr == '') {
       this.Modalservice.info({
@@ -376,5 +252,14 @@ export class UserinfosComponent implements OnInit {
     item.passflag = item.state == '未审核' ? false : item.state == '审核通过' ? true : ''
     item.noflag = item.state == '未审核' ? false : item.state == '审核不通过' ? true : ''
     item.flag = item.state == '未审核' ? false : item.state == '审核通过' ? true : ''
+  }
+
+
+  //导出文件
+  exportTable() {
+    const blob = new Blob([document.getElementById('exportableTable').innerHTML], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+    });
+    saveAs(blob, 'test.xls');
   }
 }

@@ -6,8 +6,8 @@
                     <nz-form-label [nzSpan]="7" style="font-size: 16px;">学院</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24">
                         <nz-select style="width: 150px;" nzShowSearch nzAllowClear nzPlaceHolder="请选择"
-                            formControlName="collegename" [(ngModel)]="singlecollege">
-                            <nz-option *ngFor="let singlePro of collegeTextList" [nzValue]="singlePro.code"
+                            formControlName="collegename" >
+                            <nz-option *ngFor="let singlePro of collegeTextList" [nzValue]="singlePro.value"
                                 [nzLabel]="singlePro.value">
                             </nz-option>
                         </nz-select>
@@ -18,7 +18,7 @@
                     <nz-form-control [nzSm]="14" [nzXs]="24">
                         <nz-select style="width: 150px;" nzShowSearch nzAllowClear nzPlaceHolder="请选择"
                             formControlName="grade">
-                            <nz-option *ngFor="let singleBase of gradename" [nzValue]="singleBase.code"
+                            <nz-option *ngFor="let singleBase of gradename" [nzValue]="singleBase.value"
                                 [nzLabel]="singleBase.value"></nz-option>
                         </nz-select>
                     </nz-form-control>
@@ -28,7 +28,7 @@
                     <nz-form-control [nzSm]="14" [nzXs]="24">
                         <nz-select style="width: 150px;height:20px;" nzShowSearch nzAllowClear nzPlaceHolder="请选择"
                             formControlName="speciality">
-                            <nz-option *ngFor="let singlesub of applyMajorList" [nzValue]="singlesub.code"
+                            <nz-option *ngFor="let singlesub of applyMajorList" [nzValue]="singlesub.value"
                                 [nzLabel]="singlesub.value">
                             </nz-option>
                         </nz-select>
@@ -58,7 +58,7 @@
            
         </div>
         <nz-table #rowSelectionTable [nzData]="listOfData" [nzScroll]="{ x: '1050px',y:'450px'}"  
-        [nzBordered]="true" style="margin-top: 70px;" >
+        [nzBordered]="true" style="margin-top: 50px;" >
             <thead>
               <tr>
                 <th nzWidth="50px" nzLeft="0px">序号</th>
@@ -77,14 +77,14 @@
             </thead>
             <tbody>
               <tr *ngFor="let data of rowSelectionTable.data;let i=index">
-                <td nzBreakWord nzLeft="0px">{{data.id}}</td>
+                <td nzBreakWord nzLeft="0px">{{i+1}}</td>
                 <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" (nzCheckedChange)="selectinfo(i)"></td>
-                <td nzBreakWord> <span class="operate check" (click)="showModal(data.id-1, 'see')">查看</span>
-                    <span class="operate pass checkpass" (click)="passinfo(data.id-1)" [ngClass]="{'hide': data.flag}"
+                <td nzBreakWord> <span class="operate check" (click)="showModal(data.id, 'see')">查看</span>
+                    <span class="operate pass checkpass" (click)="passinfo(data.id)" [ngClass]="{'hide': data.flag}"
                         id="checkpass">审核通过</span>
                     <br>
-                    <span class="operate revise" (click)="showModal(data.id-1, 'edit')">修改</span>
-                    <span class="operate nopass" (click)="nopassinfo(data.id-1)"
+                    <span class="operate revise" (click)="showModal(data.id, 'edit')">修改</span>
+                    <span class="operate nopass" (click)="nopassinfo(data.id)"
                         [ngClass]="{'hide': data.noflag}">审核不通过</span></td>
                 <td nzBreakWord>{{ data.name }}</td>
                 <td nzBreakWord>{{ data.studentId }}</td>
@@ -135,7 +135,7 @@
                             <nz-form-label [nzSpan]="6" nzRequired nzFor="userNation">学院</nz-form-label>
                             <nz-form-control [nzSpan]="17" nzErrorTip="">
                                 <input nz-input type="text" [disabled]="this.type=='see'" 
-                                formControlName="collegename"  [(ngModel)]="searchNum" />
+                                formControlName="collegename"  [(ngModel)]="collegename" />
                             </nz-form-control>
                         </nz-form-item>
                         <nz-form-item class="page-form-item">

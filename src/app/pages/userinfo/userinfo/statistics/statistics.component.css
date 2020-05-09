@@ -1,7 +1,7 @@
 .br{
     border:1px solid #ccc;
     border-radius: 5px;
-    width:1300px;
+    min-width:1130px;
     margin:10px 0;
 }
 .ml10{

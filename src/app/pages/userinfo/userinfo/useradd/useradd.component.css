@@ -1,12 +1,23 @@
+.content ::ng-deep .inner-content {
+    padding: 24px;
+    background: #fff;
+    min-height: 750px;
+    width:auto
+  }
+.content{
+    min-width: 1150px;
+}
+   
+
 .br{
     border:1px solid #ccc;
     border-radius: 5px;
-    width:1300px;
+    width:800px;
     margin:10px 0;
     padding:10px;
+    margin:0 auto;
 }
 .add-content{
-    width:800px;
     height:450px;
     top:100px;
     left:350px;
@@ -20,6 +31,7 @@
 .steps-arrow{
     margin:0 auto;
     text-align: center;
+    margin-top:18px
 }
 .none{
     display: none;
@@ -28,4 +40,7 @@
     text-align: center;
     font-size: 32px;
     margin:80px
+}
+::ng-deep .ant-layout {
+    width: 100%;
 }

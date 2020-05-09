@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
-import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
+import { NgZorroAntdModule, NZ_I18N, en_US, } from 'ng-zorro-antd';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
@@ -16,6 +16,8 @@ import { StatisticsComponent } from './pages/userinfo/userinfo/statistics/statis
 import { IconsProviderModule } from './icons-provider.module';
 import {zh_CN} from "ng-zorro-antd";
 import zh from '@angular/common/locales/zh';
+import { ExportdataComponent } from './pages/userinfo/userinfo/exportdata/exportdata.component';
+
 registerLocaleData(zh);
 registerLocaleData(en);
 @NgModule({
@@ -26,6 +28,7 @@ registerLocaleData(en);
     UserinfosComponent,
     UseraddComponent,
     StatisticsComponent,
+    ExportdataComponent,
   ],
   imports: [
     BrowserModule,

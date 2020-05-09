@@ -1,40 +1,100 @@
 <nz-layout>
     <nz-header
-    style="background: #fff; padding:0;height:75px;max-width:100%;color: rgba(26, 19, 19, 0.65);font-size: 1.5em;overflow: hidden;">
+    style="background: #fff; padding:0;max-width:100%;color: rgba(26, 19, 19, 0.65);font-size: 1.5em;overflow: hidden;">
     <!-- 添加头像和退出 -->
     <div nz-row nzType="flex">
 
-      <div title="" nzspan="12" nz-col style="margin-left:5%;height:60px;">
-        <p style="font-size: 28px;">2020考试信息审核系统<span>——考生信息审核表</span></p>
+      <div title="" nzspan="12" nz-col style="margin-left:1%;height:60px;">
+        <!-- <p style="font-size: 28px;">2020考试信息审核系统<span>——考生信息审核表</span></p> -->
       </div>
       <div title="" nzspan="12" nz-col style="
       position: fixed;
       right: 10px;font-size: 18px;">
-        <p appMove><span  style="color:  rgb(73, 134, 224);">{{username}} 管理员 </span > 您好，欢迎登录审核系统 <span (click)="loginout()" style="cursor: pointer;" title="退出"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;【退出登录】</span></p>   
+        <!-- <p appMove><span  style="color:  rgb(73, 134, 224);">{{username}} 管理员 </span > 您好，欢迎登录审核系统 <span (click)="loginout()" style="cursor: pointer;" title="退出"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;【退出登录】</span></p>    -->
+        <i nz-icon nzType="user" style=" font-size: 20px; padding-right: 5px;"></i>
+        <a  nz-dropdown [nzDropdownMenu]="menu1">
+          {{username}}
+          <i nz-icon nzType="down"></i>
+        </a>
+      </div>
+      <div>
+        <nz-dropdown-menu #menu1="nzDropdownMenu">
+          
+          <ul nz-menu>
+            <li nz-menu-item (click)="editpsd()"><i nz-icon nzType="edit" nzTheme="outline"></i>修改密码</li>
+            <li nz-menu-item (click)="loginout()"><i nz-icon nzType="logout" nzTheme="outline"></i>退出</li>
+          </ul>
+        </nz-dropdown-menu>
+
       </div>
     </div>
   </nz-header>
   <nz-layout>
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" style="height:auto">
       <div class="logo" nzIcon="user" ></div>
-      <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <ul nz-menu  nzTheme="dark" nzMode="inline">
+        <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: configMenu }"></ng-container>
+        <ng-template #menuTpl let-menus>
+          <ng-container *ngFor="let menu of menus">
+            <li
+            nz-menu-item
+            [nzDisabled] = "menu.disabled"
+            [nzSelected] = "menu.selected"
+            *ngIf="!menu.children"
+            (click)="navClick(menu)"
+
+            >
+            <span title style="padding-left: 30px !important;">
+              <i nz-icon *ngIf="menu.icon" [nzType] = "menu.icon"></i>
+              <span>{{menu.title}}</span>
+  
+            </span>
+  
+            </li>
+            <li
+            nz-submenu
+            [nzOpen]="menu.open"
+            (click)="navClick(menu)"
+            *ngIf="menu.children"
+            >
+            <span title>
+              <i nz-icon *ngIf="menu.icon" [nzType] = "menu.icon">
+              </i>
+              <span>{{menu.title}}</span>
+            </span>
+            <ul>
+              <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menu.children }"></ng-container>
+  
+            </ul>
+          </li>
+  
+          </ng-container>
+          
+        </ng-template>
+      </ul>
+   
+      
+      
+      <!-- <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
         <li nz-submenu nzTitle="用户列表" nzIcon="user" nzOpen>
           <ul>
-            <li nz-menu-item routerLink="/userinfo/userinfos" nzSelected>用户列表</li>            
+            <li nz-menu-item routerLink="/userinfo/userinfos" [nzSelected] = false>用户列表</li>            
           </ul>
         </li>
-        <li nz-submenu nzTitle="用户添加" nzIcon="team">
+        <li nz-submenu nzTitle="用户添加" nzIcon="team" nzOpen>
           <ul>
             <li nz-menu-item routerLink="/userinfo/useradd">用户添加</li>
           </ul>
         </li>
-        <li nz-submenu nzTitle="数据统计" nzIcon="bar-chart">
+        <li nz-submenu nzTitle="数据统计" nzIcon="bar-chart" nzOpen>
           <ul>
-            <li nz-menu-item routerLink="/userinfo/statistic">数据统计</li>
+            <li nzIcon="bar-chart"  nz-menu-item routerLink="/userinfo/statistic">数据统计</li>
+            <li nzIcon="diff" nz-menu-item routerLink="/userinfo/exportdata">数据导出</li>
+
           </ul>
         </li>
-        
-      </ul>
+
+      </ul> -->
     </nz-sider>
     <nz-layout   nz-row nzSpan="24">
  

@@ -1,0 +1,94 @@
+<div class="userinfo-main">
+    <div class="userinfo-header">
+        <div class="userinfo-header-top">
+            <form nz-form (ngSubmit)="searchForm()" [formGroup]="contentForm" class="loginForm">
+                <nz-form-item class="search">
+                    <nz-form-label [nzSpan]="7" style="font-size: 16px;">学院</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <nz-select style="width: 150px;" nzShowSearch nzAllowClear nzPlaceHolder="请选择"
+                            formControlName="collegename" [(ngModel)]="singlecollege">
+                            <nz-option *ngFor="let singlePro of collegeTextList" [nzValue]="singlePro.code"
+                                [nzLabel]="singlePro.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="search">
+                    <nz-form-label [nzSpan]="7" style="font-size: 16px;">年级</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <nz-select style="width: 150px;" nzShowSearch nzAllowClear nzPlaceHolder="请选择"
+                            formControlName="grade">
+                            <nz-option *ngFor="let singleBase of gradename" [nzValue]="singleBase.code"
+                                [nzLabel]="singleBase.value"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="search">
+                    <nz-form-label [nzSpan]="7">专业</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <nz-select style="width: 120px;height:20px;" nzShowSearch nzAllowClear nzPlaceHolder="请选择"
+                            formControlName="speciality">
+                            <nz-option *ngFor="let singlesub of applyMajorList" [nzValue]="singlesub.code"
+                                [nzLabel]="singlesub.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="search">
+                    <nz-form-label [nzSpan]="7">审核状态</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <nz-select style="width: 150px;height:20px;" nzShowSearch nzAllowClear nzPlaceHolder="请选择"
+                            formControlName="speciality">
+                            <nz-option *ngFor="let singlesub of status" [nzValue]="singlesub.code"
+                                [nzLabel]="singlesub.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item  class="search-btn search" style="width:100px;line-height:2.6;margin-left:20px">
+                    <button nz-button nzType="primary"><i nz-icon nzType="search"></i>查询</button>
+                </nz-form-item>
+                <nz-form-item  class="search-btn search" style="width:100px;line-height:2.6;margin-left:10px">
+                    <button nz-button nzType="primary" (click)="exportTable()">导出</button>
+                </nz-form-item>
+            </form>
+        </div>
+        <nz-table #rowSelectionTable [nzData]="listOfData" [nzScroll]="{ x: '1050px',y:'450px'}"  
+        [nzBordered]="true" style="margin-top: 20px;" id="exportableTable" [nzPageSize]= "listOfData.length">
+            <thead>
+              <tr>
+                <th nzWidth="50px" nzLeft="0px">序号</th>
+                <th nzWidth="50px" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
+                [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"  nzLeft="50px"></th>
+                <th nzWidth="100px">姓名</th>
+                <th nzWidth="100px">考生号</th>
+                <th nzWidth="100px">学院</th>
+                <th nzWidth="100px">年级</th>
+                <th nzWidth="100px">专业</th>
+                <th nzWidth="100px">学历</th>
+                <th nzWidth="100px">电话</th>
+                <th nzWidth="100px" nzRight="0px">审核状态</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of rowSelectionTable.data;let i=index">
+                <td nzBreakWord nzLeft="0px">{{data.id}}</td>
+                <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" (nzCheckedChange)="selectinfo(i)"></td>
+                <td nzBreakWord>{{ data.name }}</td>
+                <td nzBreakWord >{{ data.studentId }}</td>
+                <td nzBreakWord>{{ data.xueyuan }}</td>
+                <td nzBreakWord>{{ data.grade }}</td>
+                <td nzBreakWord>{{ data.project }}</td>
+                <td nzBreakWord>{{ data.education }}</td>
+                <td nzBreakWord>{{ data.number }}</td>
+                <td nzBreakWord nzRight="0px" [ngClass]="{'showstyle':data.noflag,'passstyle':data.passflag}">
+                {{ data.state }}
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+    </div>
+   
+    
+</div>

@@ -1,8 +1,10 @@
+.userinfo-main{
+    min-width:1130px
+}
 .userinfo-header-top{
     width:100%;
     font-size:16px;
 }
-
 .userinfo-header-top div{
     width:100%;
     float: left;
@@ -10,7 +12,7 @@
 }
 .userinfo-header-top div button{
     margin-left:10px;
-    margin-bottom:10px;
+    margin-bottom:20px;
 }
 .userinfo-header-top div  label{
     width:100px;
@@ -135,12 +137,12 @@ input::-webkit-input-placeholder{
 .passstyle{
     color: #67A1DD
 }
-::ng-deep .search{
+.userinfo-main ::ng-deep .search{
     display: inline-block;
     width:18%;
     margin-bottom: 0em;
 }
-::ng-deep .searchText{
+.userinfo-main ::ng-deep .searchText{
     height:30px;
 }
 .searchbtn{
@@ -149,7 +151,7 @@ input::-webkit-input-placeholder{
     right: 50px;
     top: 115px;
 }
-::ng-deep .ant-table-tbody > tr > td,::ng-deep .ant-table-thead > tr > th {
+.userinfo-main ::ng-deep .ant-table-tbody > tr > td,.userinfo-main ::ng-deep .ant-table-thead > tr > th {
     text-align: center;
     padding: 16px 8px;
 }
@@ -160,15 +162,15 @@ input::-webkit-input-placeholder{
     -khtml-user-select:none;/*早期浏览器*/
       user-select:none;
 }
-::ng-deep .ant-layout{
+.userinfo-main ::ng-deep .ant-layout{
     height: 100%;
 }
 .showInfo{
     display: none;
 }
-::ng-deep .ant-input-disabled{
+.userinfo-main ::ng-deep .ant-input-disabled{
     color: #565656;
 }
-::ng-deep .ant-layout {
-    width: 100%;
+.userinfo-main ::ng-deep .ant-layout {
+    width: 108%;
 }
