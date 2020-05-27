@@ -7,7 +7,7 @@
                     <nz-form-control [nzSm]="14" [nzXs]="24">
                         <nz-select style="width: 150px;" nzShowSearch nzAllowClear nzPlaceHolder="请选择"
                             formControlName="collegename" [(ngModel)]="singlecollege">
-                            <nz-option *ngFor="let singlePro of collegeTextList" [nzValue]="singlePro.code"
+                            <nz-option *ngFor="let singlePro of collegeTextList" [nzValue]="singlePro.value"
                                 [nzLabel]="singlePro.value">
                             </nz-option>
                         </nz-select>
@@ -18,7 +18,7 @@
                     <nz-form-control [nzSm]="14" [nzXs]="24">
                         <nz-select style="width: 150px;" nzShowSearch nzAllowClear nzPlaceHolder="请选择"
                             formControlName="grade">
-                            <nz-option *ngFor="let singleBase of gradename" [nzValue]="singleBase.code"
+                            <nz-option *ngFor="let singleBase of gradename" [nzValue]="singleBase.value"
                                 [nzLabel]="singleBase.value"></nz-option>
                         </nz-select>
                     </nz-form-control>
@@ -28,7 +28,7 @@
                     <nz-form-control [nzSm]="14" [nzXs]="24">
                         <nz-select style="width: 120px;height:20px;" nzShowSearch nzAllowClear nzPlaceHolder="请选择"
                             formControlName="speciality">
-                            <nz-option *ngFor="let singlesub of applyMajorList" [nzValue]="singlesub.code"
+                            <nz-option *ngFor="let singlesub of applyMajorList" [nzValue]="singlesub.value"
                                 [nzLabel]="singlesub.value">
                             </nz-option>
                         </nz-select>
@@ -38,8 +38,8 @@
                     <nz-form-label [nzSpan]="7">审核状态</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24">
                         <nz-select style="width: 150px;height:20px;" nzShowSearch nzAllowClear nzPlaceHolder="请选择"
-                            formControlName="speciality">
-                            <nz-option *ngFor="let singlesub of status" [nzValue]="singlesub.code"
+                            formControlName="state">
+                            <nz-option *ngFor="let singlesub of status" [nzValue]="singlesub.value"
                                 [nzLabel]="singlesub.value">
                             </nz-option>
                         </nz-select>

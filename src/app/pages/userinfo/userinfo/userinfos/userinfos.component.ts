@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TimeHolder } from 'ng-zorro-antd/time-picker/time-holder';
 import { NzModalService } from 'ng-zorro-antd';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { log } from 'util';
 
 @Component({
   selector: 'app-userinfos',
@@ -60,6 +61,9 @@ export class UserinfosComponent implements OnInit {
   type: any;
   isVisible : boolean = false;
   userdatas: Object;
+  project: any;
+  number: any;
+  state: any;
 
   constructor(
     private fb: FormBuilder,
@@ -83,6 +87,9 @@ export class UserinfosComponent implements OnInit {
       collegename:[],
       grade:[],
       project:[],
+      number:[],
+      state:[]
+
     })
     
     this.http.get('http://192.168.8.150:3000/user').subscribe((res) => {
@@ -195,6 +202,9 @@ export class UserinfosComponent implements OnInit {
     
     this.passbasedataAry = this.listOfData;
   }
+  modifysubForm(val){
+    console.log(val)
+  }
 
   //单条审核不通过
   nopassinfo(id) {
@@ -207,6 +217,7 @@ export class UserinfosComponent implements OnInit {
     })
     
     this.passbasedataAry = this.listOfData;
+    
   }
 
   //所选单挑数据
@@ -241,6 +252,15 @@ export class UserinfosComponent implements OnInit {
         item.state = '1'
         this.singleverifyState(item)
         this.mapOfCheckedId[item.id] = false
+      })
+      console.log(this.multistr);
+      
+      this.listOfData.forEach(item=>{
+        this.multistr.forEach(el=>{
+          if(item.name == el.name){
+            el.state = item.state
+          }
+        })
       })
       this.multistr = []
       
@@ -296,6 +316,8 @@ export class UserinfosComponent implements OnInit {
         this.mapOfCheckedId[item.id] = false
         this.isAllDisplayDataChecked = false
       })
+      this.listOfData = this.multistr
+      console.log( this.listOfData);
       this.multistr=[]
     }
   }
@@ -309,9 +331,12 @@ export class UserinfosComponent implements OnInit {
       this.Infoflag = false;
       this.username = itemdata.name
       this.userSex= itemdata.sex;
-      this.searchNum = itemdata.number;
-      this.collegename = itemdata.collegename;
+      this.searchNum = itemdata.studentId;
+      this.collegename = itemdata.xueyuan;
       this.grade = itemdata.grade;
+      this.project = itemdata.project
+      this.number = itemdata.number
+      this.state =  itemdata.state
 
 
     }else{
@@ -322,8 +347,11 @@ export class UserinfosComponent implements OnInit {
       this.username = itemdata.name
       this.userSex= itemdata.sex;
       this.searchNum = itemdata.number;
-      this.collegename = itemdata.collegename;
+      this.collegename = itemdata.xueyuan;
       this.grade = itemdata.grade;
+      this.project = itemdata.project
+      this.number = itemdata.number
+      this.state =  itemdata.state
 
 
     }
@@ -334,6 +362,10 @@ export class UserinfosComponent implements OnInit {
   handleCancel(){
     this.isVisible = false;
     
+  }
+  handleOk(){
+    this.isVisible = false;
+
   }
   //查看用户信息
   checkinfo(i){

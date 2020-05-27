@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TimeHolder } from 'ng-zorro-antd/time-picker/time-holder';
 import { NzModalService } from 'ng-zorro-antd';
 import { saveAs } from "file-saver";
+import { log } from 'util';
 
 @Component({
   selector: 'app-exportdata',
@@ -31,8 +32,8 @@ export class ExportdataComponent implements OnInit {
   ];
   // 专业
   applyMajorList: any = [
-    { "value": '信管专业', 'code': '0' },
-    { "value": '医信', 'code': '1' },
+    { "value": '信息管理与信息系统', 'code': '0' },
+    { "value": '医学信息工程', 'code': '1' },
     { "value": '信工', 'code': '2' }
   ];
   status: any = [
@@ -66,6 +67,7 @@ export class ExportdataComponent implements OnInit {
   grade: any;
   type: any;
   isVisible : boolean = false;
+  listOfDatas: any;
 
   constructor(
     private fb: FormBuilder,
@@ -76,11 +78,12 @@ export class ExportdataComponent implements OnInit {
   ngOnInit() {
 
     this.contentForm = this.fb.group({
-      collegename: [null, [Validators.required]],
-      grade: [null, [Validators.required]],
-      speciality: [null, [Validators.required]],
-      searchname: [null, [Validators.required]],
-      searchNum: [null, [Validators.required]]
+      collegename: ['', [Validators.required]],
+      grade: ['', [Validators.required]],
+      speciality: ['', [Validators.required]],
+      searchname: ['', null],
+      searchNum: ['', [Validators.required]],
+      state:[]
     });
     this.modifyForm = this. fb.group({
       username:[null, [Validators.required]],
@@ -92,11 +95,12 @@ export class ExportdataComponent implements OnInit {
 
     })
     
-    this.http.get('http://192.168.8.150:3000/user').subscribe((res) => {
+    this.http.get('http://192.168.8.150:3000/users').subscribe((res) => {
       console.log(res)
       const userdatas = res
       if (userdatas && Array.isArray(userdatas) && userdatas.length > 0) {
         this.listOfData = this.verifyState(userdatas)
+        this.listOfDatas = this.verifyState(userdatas)
       }
       this.flag = res['flag'];
     })
@@ -109,10 +113,11 @@ export class ExportdataComponent implements OnInit {
 
   //查询数据
   //查询数据
-  
 
   searchForm()
    {
+    this.listOfData = this.listOfDatas
+    console.log(this.listOfData)
     const contentForm = this.contentForm
     const contentFormValue = contentForm.value
     const searchnamevalue = contentFormValue.searchname;
@@ -120,17 +125,76 @@ export class ExportdataComponent implements OnInit {
     const collegename = contentFormValue.collegename;
     const grade = contentFormValue.grade;
     const project = contentFormValue.speciality;
+    let state = contentFormValue.state
     const searchData = [];
-    console.log(searchnamevalue)
-    if(searchnamevalue != '' || searchNum != ''){
+    console.log(contentFormValue)
+    // if(searchnamevalue != '' || searchNum != ''){
+    //   this.listOfData.map((item) => {
+    //         if (searchnamevalue == item.name || searchNum == item.number) {
+    //           console.log(item)
+    //           searchData.push(item)
+    //           this.listOfData = searchData
+    //           return
+    //         }
+    //       })
+    // }
+    if(state == '未审核'){
       this.listOfData.map((item) => {
-            if (searchnamevalue == item.name || searchNum == item.number) {
-              console.log(item)
-              searchData.push(item)
-              this.listOfData = searchData
-              return
-            }
-          })
+        if (state == item.state) {
+          searchData.push(item)
+          this.listOfData = searchData
+          return
+        }
+      })
+    }else if(state == '审核通过'){
+      this.listOfData.map((item) => {
+        if (state == item.state) {
+          searchData.push(item)
+          this.listOfData = searchData
+          return
+        }
+      })
+    }else{
+      this.listOfData.map((item) => {
+        if (state == item.state) {
+          searchData.push(item)
+          this.listOfData = searchData
+          return
+        }
+      })
+    }
+    if(collegename !='' && grade != '' && project != ''){
+      this.listOfData.map((item) => {
+        if (item.xueyuan == collegename.trim()  && item.grade == grade.trim()  &&  item.project == project.trim()   ) {
+          searchData.push(item)
+          console.log(searchData)
+          this.listOfData = searchData
+          console.log(this.listOfData)
+          return
+        }
+
+      })
+      if(searchData == []){
+        this.listOfData = searchData
+      }
+    }else if(collegename =='' && grade == '' && project == '' && searchnamevalue != '' || searchNum != ''){
+      this.listOfData.map((item) => {
+        if (searchnamevalue.trim() == item.name || searchNum.trim() == item.studentId) {
+          searchData.push(item)
+          console.log(searchData)
+          this.listOfData = searchData
+          return
+        }else if(searchnamevalue.trim() == item.name && searchNum.trim() == item.studentId){
+          searchData.push(item)
+          console.log(searchData)
+          this.listOfData = searchData
+          console.log(this.listOfData)
+        }
+
+      })
+      if(searchData == []){
+        this.listOfData = searchData
+      }
     }
     // if(searchnamevalue == '' && searchNum == '' && collegename == '' && grade == '' && project == ''){
     //      this.listOfData = this.listOfData

@@ -102,7 +102,7 @@
     </div>
     <nz-modal [(nzVisible)]="isVisible" nzWidth="900" nzTitle="" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
         <div class="checkinfo-content">
-            <form nz-form (ngSubmit)="modifyForm()" [formGroup]="modifyForm" >
+            <form nz-form (ngSubmit)="modifysubForm(modifyForm.value)" [formGroup]="modifyForm" >
                 <nz-collapse>
                     <nz-collapse-panel nzHeader="基本信息" nzActive="true">
                         <nz-form-item class="page-form-item">
@@ -131,6 +131,7 @@
                                 formControlName="searchNum" [(ngModel)]="searchNum" />
                             </nz-form-control>
                         </nz-form-item>
+                        
                         <nz-form-item class="page-form-item">
                             <nz-form-label [nzSpan]="6" nzRequired nzFor="userNation">学院</nz-form-label>
                             <nz-form-control [nzSpan]="17" nzErrorTip="">
@@ -143,6 +144,27 @@
                             <nz-form-control [nzSpan]="17" nzErrorTip="">
                                 <input nz-input type="text" [disabled]="this.type=='see'" 
                                 formControlName="grade"  [(ngModel)]="grade"  />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item class="page-form-item">
+                            <nz-form-label [nzSpan]="6" nzRequired nzFor="userNation">专业</nz-form-label>
+                            <nz-form-control [nzSpan]="17" nzErrorTip="">
+                                <input nz-input type="text" [disabled]="this.type=='see'"
+                                formControlName="project" [(ngModel)]="project" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item class="page-form-item">
+                            <nz-form-label [nzSpan]="6" nzRequired nzFor="userNation">电话</nz-form-label>
+                            <nz-form-control [nzSpan]="17" nzErrorTip="">
+                                <input nz-input type="text" [disabled]="this.type=='see'"
+                                formControlName="number" [(ngModel)]="number" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item class="page-form-item">
+                            <nz-form-label [nzSpan]="6" nzRequired nzFor="userNation">审核状态</nz-form-label>
+                            <nz-form-control [nzSpan]="17" nzErrorTip="">
+                                <input nz-input type="text" [disabled]="this.type=='see'"
+                                formControlName="state" [(ngModel)]="state" />
                             </nz-form-control>
                         </nz-form-item>
                     </nz-collapse-panel>
