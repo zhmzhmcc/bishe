@@ -94,7 +94,8 @@ export class LoginComponent implements OnInit {
       }
       const loginFormVal=loginForm.value;
       console.log(loginFormVal);
-      window.localStorage['userMajor']=loginFormVal.loginusername
+      window.localStorage['userMajor'] = loginFormVal.loginusername
+      window.localStorage['passWord'] = loginFormVal.loginpassword
       this.route.navigate(['/userinfo/userinfos'])
     }
   }

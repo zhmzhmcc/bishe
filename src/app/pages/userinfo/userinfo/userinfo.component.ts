@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzModalService } from 'ng-zorro-antd';
+import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { Router, NavigationStart, NavigationEnd} from '@angular/router'
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { Subscription } from 'rxjs';
@@ -16,14 +16,22 @@ export class UserinfoComponent implements OnInit {
   configMenu: any[];
   //生明订阅对象
   rooterChange: Subscription;
+  isVisible:boolean= false;
+  passwordVisible = false;
+  password?: string;
+  oldpsd:any;
+  newpsd:any;
+  remewpsd:any;
 
   constructor(
     private ModalService:NzModalService,
-    private route:Router
+    private route:Router,
+    private message:NzMessageService 
     ) { }
 
   ngOnInit() {
     this.username = window.localStorage['userMajor']
+    this.password = window.localStorage['passWord']
     this.configMenu = [
       {
         title: "用户列表",
@@ -113,9 +121,11 @@ export class UserinfoComponent implements OnInit {
     })
   }
   editpsd(){
-
+    this.isVisible = true
   }
-
+  handleCancel(){
+    this.isVisible = false
+  }
 
 
   navClick(menu){
@@ -127,6 +137,14 @@ export class UserinfoComponent implements OnInit {
       menu.selected = false
 
     }
+
+  }
+
+  handleOk(){
+    this.isVisible = false;
+  
+    this.message.create('success','修改成功')
+    
 
   }
   /**

@@ -5,7 +5,7 @@
     <div nz-row nzType="flex">
 
       <div title="" nzspan="12" nz-col style="margin-left:1%;height:60px;">
-        <!-- <p style="font-size: 28px;">2020考试信息审核系统<span>——考生信息审核表</span></p> -->
+        <p style="font-size: 28px;">2020考试信息审核系统<span>——考生信息审核表</span></p>
       </div>
       <div title="" nzspan="12" nz-col style="
       position: fixed;
@@ -25,6 +25,29 @@
             <li nz-menu-item (click)="loginout()"><i nz-icon nzType="logout" nzTheme="outline"></i>退出</li>
           </ul>
         </nz-dropdown-menu>
+        <nz-modal [(nzVisible)]="isVisible" nzTitle="修改密码" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>请输入旧密码</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your password!">
+              <input nz-input type="password" id="password" [(ngModel)]="oldpsd" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>请输入新密码</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" [(ngModel)]="newpsd" >
+              <input nz-input type="password" id="password" />
+            </nz-form-control>
+          </nz-form-item>
+         
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>确认密码</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your password!">
+              <input nz-input type="password" id="password" [(ngModel)]="renewpsd" />
+            </nz-form-control>
+          </nz-form-item>
+        s
+         
+        </nz-modal>
 
       </div>
     </div>
